@@ -1,0 +1,148 @@
+<div *ngIf="info.token; else loggedOut">
+  <h4>Таблица с результатами</h4>
+
+  <div style="margin: 1% auto; text-align: center;">
+    <canvas #graphCanvas (click)="sendCanvasPoint($event)" width="260" height="260" style="border:1px solid #000000; margin-top: 5px;" >
+      Ваш браузер не поддерживает технологию Canvas
+    </canvas>
+  </div>
+
+  <form class="was-validated" name="form" (ngSubmit)="onSubmit()" #f="ngForm">
+    <div class="form-outline mb-4">
+    <label>Выберите координату X:</label><br>
+      <div class="form-check form-check-inline">
+        <input id="x-5" type="radio" class="form-check-input" name="x" value="-5" [(ngModel)]="form.x" #x="ngModel" required />
+        <label for="x-5">-5</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="x-4" type="radio" class="form-check-input" name="x" value="-4" [(ngModel)]="form.x" #x="ngModel" required />
+        <label for="x-4">-4</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="x-3" type="radio" class="form-check-input" name="x" value="-3" [(ngModel)]="form.x" #x="ngModel" required />
+        <label for="x-3">-3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="x-2" type="radio" class="form-check-input" name="x" value="-2" [(ngModel)]="form.x" #x="ngModel" required />
+        <label for="x-2">-2</label>
+      </div>
+    <div class="form-check form-check-inline">
+      <input id="x-1" type="radio" class="form-check-input" name="x" value="-1" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x-1">-1</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x0" type="radio" class="form-check-input" name="x" value="0" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x0">0</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x1" type="radio" class="form-check-input" name="x" value="1" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x1">1</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x2" type="radio" class="form-check-input" name="x" value="2" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x2">2</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x3" type="radio" class="form-check-input" name="x" value="3" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x3">3</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x4" type="radio" class="form-check-input" name="x" value="4" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x4">4</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input id="x5" type="radio" class="form-check-input" name="x" value="5" [(ngModel)]="form.x" #x="ngModel" required />
+      <label for="x5">5</label>
+    </div>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="y">Координата Y:</label>
+      <input id="y" type="number" class="form-control" name="y" [(ngModel)]="form.y" #y="ngModel" min="-5.0" max="5.0" step=0.01 required />
+      <div class="invalid-feedback">Введите координату Y!</div>
+    </div>
+    <div class="form-outline mb-4">
+      <label>Радиус:</label><br>
+      <div class="form-check form-check-inline">
+        <input id="r-5" type="radio" class="form-check-input" name="r" value="-5" [(ngModel)]="form.r" #r="ngModel" required />
+        <label for="r-5">-5</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r-4" type="radio" class="form-check-input" name="r" value="-4" [(ngModel)]="form.r" #r="ngModel" required />
+        <label for="r-4">-4</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r-3" type="radio" class="form-check-input" name="r" value="-3" [(ngModel)]="form.r" #r="ngModel" required />
+        <label for="r-3">-3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r-2" type="radio" class="form-check-input" name="r" value="-2" [(ngModel)]="form.r" #r="ngModel" required />
+        <label for="r-2">-2</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r-1" type="radio" class="form-check-input" name="r" value="-1" [(ngModel)]="form.r" #r="ngModel" required />
+        <label for="r-1">-1</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r0" type="radio" class="form-check-input" name="r" value="0" [(ngModel)]="form.r" #r="ngModel" required/>
+        <label for="r0">0</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r1" type="radio" class="form-check-input" name="r" value="1" [(ngModel)]="form.r" #r="ngModel" (change)="radiusChange($event)" required/>
+        <label for="r1">1</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r2" type="radio" class="form-check-input" name="r" value="2" [(ngModel)]="form.r" #r="ngModel" (change)="radiusChange($event)" required/>
+        <label for="r2">2</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r3" type="radio" class="form-check-input" name="r" value="3" [(ngModel)]="form.r" #r="ngModel" (change)="radiusChange($event)" required/>
+        <label for="r3">3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r4" type="radio" class="form-check-input" name="r" value="4" [(ngModel)]="form.r" #r="ngModel" (change)="radiusChange($event)" required/>
+        <label for="r4">4</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="r5" type="radio" class="form-check-input" name="r" value="5" [(ngModel)]="form.r" #r="ngModel" (change)="radiusChange($event)" required/>
+        <label for="r5">5</label>
+      </div>
+    </div>
+    <div class="form-outline mb-4">
+      <button class="btn btn-primary">Проверить</button>
+    </div>
+  </form>
+  <div class="form-outline mb-4">
+    <button type="button" class="btn btn-primary" (click)="onClearPoints()">Очистить таблицу</button>
+  </div>
+<div>
+
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Время запроса</th>
+    <th scope="col">Время выполнения</th>
+    <th scope="col">X</th>
+    <th scope="col">Y</th>
+    <th scope="col">R</th>
+    <th scope="col">Результат</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let request of response">
+    <td>{{ request.executionDate }}</td>
+    <td>{{ request.executionTime }}</td>
+    <td>{{ request.x }}</td>
+    <td>{{ request.y }}</td>
+    <td>{{ request.r }}</td>
+    <td>{{ request.belong ? 'Попадение' : 'Нет попадания'}} </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<ng-template #loggedOut>
+  Вы не авторизованы!
+</ng-template>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

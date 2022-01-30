@@ -1,0 +1,41 @@
+<div *ngIf="isSignedUp; else signupForm">
+  Вы зарегистрированы! Теперь вам нужно авторизоваться, чтобы получить доступ к таблице!
+</div>
+
+<ng-template #signupForm>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <form class="was-validated" name="form" (ngSubmit)="onSubmit()" #f="ngForm">
+                <div class="form-outline mb-4">
+                  <h3 class="mb-5">Регистрация</h3>
+                  <input id="username" type="text" class="form-control form-control-lg" name="username" [(ngModel)]="form.username" #username="ngModel" placeholder="Имя пользователя" required />
+                  <div class="invalid-feedback">
+                    Введите имя пользователя!
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <input id="password" type="password" class="form-control form-control-lg" name="password" [(ngModel)]="form.password" #password="ngModel" placeholder="Пароль"
+                  required minlength="6" />
+                  <div class="invalid-feedback">
+                    Введите пароль! Минимум 6 символов!
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary btn-lg btn-block">Зарегистрироваться</button>
+                </div>
+              <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+                Ошибка регистрации: <br/>{{errorMessage}}
+              </div>
+            </form>
+            <hr/>
+            <p>Уже зарегистрированы?</p>
+            <a class="btn btn-primary" routerLink="/login">Авторизация</a>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,42 @@
+<div *ngIf="isLoggedIn; else loggedOut">
+  Вы авторизированы! Через несколько секунд вы будете перенаправлены на главную страницу...
+</div>
+
+<ng-template #loggedOut>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+              <form name="form" (ngSubmit)="onSubmit()" #f="ngForm">
+                <div class="form-outline mb-4">
+                  <h3 class="mb-5">Авторизация</h3>
+                  <input id="username" type="email" class="form-control form-control-lg" name="username" [(ngModel)]="form.username" #username="ngModel" placeholder="Имя пользователя"
+                    required />
+                  <div *ngIf="f.submitted && username.invalid">
+                    <div *ngIf="username.errors?.['required']">Имя пользователя не может быть пустым!</div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <input id="password" type="password" class="form-control form-control-lg" name="password" [(ngModel)]="form.password" #password="ngModel" placeholder="Пароль"
+                    required />
+                  <div *ngIf="f.submitted && password.invalid">
+                    <div *ngIf="password.errors?.['required']">Пароль не может быть пустым!</div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary btn-lg btn-block">Войти</button>
+                </div>
+                <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
+                  Ошибка авторизации: {{errorMessage}}
+                </div>
+              </form>
+          <hr/>
+          <p>Нет аккаунта?</p>
+          <a class="btn btn-primary" routerLink="/register">Зарегистрироваться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

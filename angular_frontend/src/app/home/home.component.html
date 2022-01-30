@@ -1,0 +1,20 @@
+<div style="margin: 1% auto; text-align: center;">
+  <h3 id="localtime">Текущее время: {{ strDate }}</h3>
+</div>
+
+<div *ngIf="info.token; else loggedOut">
+  <div class="text-center">
+    <div>
+      Привет, {{ username }}!
+    </div>
+    <button type="button" class="btn btn-success" routerLink="/table">Открыть таблицу</button>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="text-center">
+    <h5 class="card-title"></h5>
+    <p class="card-text">Нужно авторизоваться!</p>
+    <a href="#" class="btn btn-primary" routerLink="/login">Авторизоваться</a>
+  </div>
+</ng-template>
