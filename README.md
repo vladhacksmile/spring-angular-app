@@ -1,5 +1,5 @@
-# spring_angular_app
-Spring backend + Angular fronted (with Bootstrap) app. With authorization/registration, JWT token (per request), canvas plot
+# Spring + Angular App (checking points on a graph)
+Spring backend + Angular fronted (with Bootstrap) app. With authorization/registration, JWT token (per request), canvas graph
 
 
 Spring REST API.
@@ -10,3 +10,5 @@ A dynamically updated picture depicting an area on the coordinate plane in accor
 A table listing the results of previous checks.
 
 All check results must be stored in a database managed by PostgreSQL (using Spring JPA)
+
+https://se.ifmo.ru/courses/web?p_p_id=iapsportletlab9_WAR_iapsportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage?1643560446754![image](https://user-images.githubusercontent.com/54905627/151711220-00ecd284-285b-4662-a3d0-47bdccec30f9.png)
