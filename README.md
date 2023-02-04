@@ -1,7 +1,7 @@
 # Spring + Angular App (checking points on a graph)
 Spring backend + Angular fronted приложение, вычисляющее принадлежность точки к графику. С авторизацией/регистрацией, JWT токеном (на каждый запрос) и динамическим Canvas графиком.
 
-**Стек (Backend):** Java, Spring Boot, Spring Security, JWT, Spring JPA, Hibernate, PostgreSQL, Streams API, Lombok, Maven
+**Стек (Backend):** Java, Spring Boot, Spring Security, JWT, Spring JPA, Hibernate, PostgreSQL, Streams API, Lombok, Maven<br>
 **Стек (Frontend):** Angular, TypeScript, Bootstrap
 
 ## Описание приложения
