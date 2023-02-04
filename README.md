@@ -1,14 +1,32 @@
 # Spring + Angular App (checking points on a graph)
-Spring backend + Angular fronted (with Bootstrap) app. With authorization/registration, JWT token (per request), canvas graph
+Spring backend + Angular fronted приложение, вычисляющее принадлежность точки к графику. С авторизацией/регистрацией, JWT токеном (на каждый запрос) и динамическим Canvas графиком.
 
+**Стек (Backend):** Java, Spring Boot, Spring Security, JWT, Spring JPA, Hibernate, PostgreSQL, Streams API, Lombok, Maven
+**Стек (Frontend):** Angular, TypeScript, Bootstrap
 
-Spring REST API.
+## Описание приложения
+Backend и Frontend уровни взаимодействуют между собой посредством REST API.
 
-Form for entering login and password. Information about users registered in the system is stored in a separate database table (the password is stored as a hash sum). Access of unauthorized users to the main page of the application is prohibited.
+Сервисы Backend части:
+- Авторизация/регистрация (используется Spring Security + выдача JWT токена и валидация на каждый запрос). Работа с базой данных PostgreSQL осуществляется при помощи JPA-репозиториев.
+- Обработчик координат и вычисление их принадлежности к графику с валидацией при помощи аннотаций Spring (CRUD)
+- Обработчик пользовательских данных (UserDetailsImpl)
 
-A dynamically updated picture depicting an area on the coordinate plane in accordance with the number of the variant and points, the coordinates of which were specified by the user. Clicking on the image should initiate a script that determines the coordinates of a new point and sends them to the server to check if it falls into the area. The color of the dots should depend on the fact of hitting / missing the area. Changing the radius should also initiate a redraw of the image.
-A table listing the results of previous checks.
+С каждым запросом на Backend необходимо отправлять access_token (кроме авторизации/регистрации), иначе будет запрещен доступ к данным. Сам access_token  может быть получен после отправки запроса с логином и паролем на */api/account/login*.
 
-All check results must be stored in a database managed by PostgreSQL (using Spring JPA)
+Приложение включает в себя 3 страницы - **стартовую, страницу авторизации/регистрации и основную страницу**. Все страницы **адаптированы** для отображения в 3 режимах: десктопный, планшетный, мобильный. Используются стили и компоненты анимации Bootstrap.
 
-<img src="https://user-images.githubusercontent.com/54905627/151711220-00ecd284-285b-4662-a3d0-47bdccec30f9.png"/>
+- **Стартовая страница** содержит шапку и кнопку для перехода на страницу регистрации/перехода к приложению (зависит от того, авторизован ли пользователь).
+
+- **Страница авторизации/регистрации** состоит из полей для ввода данных и кнопки для отправки формы. Есть возможность переключаться между режимами авторизации/регистрации. Информация о зарегистрированных в системе пользователях хранится в отдельной таблице PostgreSQL (пароли зашифрованы и хранятся в виде хэш-суммы). Доступ неавторизованным пользователям к основной странице приложения запрещен.
+
+- **Основная страница** приложения состоит из:
+
+1. Набора полей для задания координат точки и радиуса области, кнопки отправки, графика. Если пользователь вводит некорректные данные (буквы в координатах точки или отрицательный радиус), то приложение осуществляет их валидацию и выводит сообщение об ошибке, не делая лишних запросов к Backend'у.
+2. Динамически обновляемой картинке (Canvas), изображающую область на координатной плоскости, координаты которых были заданы пользователем. Клик по картинке инициирует сценарий, осуществляющий определение координат новой точки и отправку их на API для проверки ее попадания в область. Цвет точек зависит от факта попадания/непопадания в область. Смена радиуса также инициирует перерисовку картинки.
+3. Таблицы со списком результатов предыдущих проверок (на каждого пользователя своя).
+
+Также кнопка в навигационном баре, по которой аутентифицированный пользователь может закрыть свою сессию и вернуться на стартовую страницу приложения.
+
+<p align="center"><br><img src="https://user-images.githubusercontent.com/54905627/151711220-00ecd284-285b-4662-a3d0-47bdccec30f9.png"/></p>
+
